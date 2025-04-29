@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmetic Cloud | Premium Minecraft Hosting</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navbar */
+        header {
+            background: linear-gradient(90deg, #000000, #1a0000, #000000);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #ff0000;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1607513746994-51f730a44832?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-content {
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+
+        .cta-button {
+            background: #ff0000;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: #cc0000;
+            transform: scale(1.05);
+        }
+
+        /* Plans Section */
+        .plans {
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .plans h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #ff0000;
+        }
+
+        .plan-categories {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-btn {
+            background: #1a0000;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .category-btn.active {
+            background: #ff0000;
+        }
+
+        .category-btn:hover {
+            background: #ff0000;
+        }
+
+        .plan-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .plan-card {
+            background: linear-gradient(145deg, #1a0000, #000000);
+            border-radius: 10px;
+            padding: 2rem;
+            width: 300px;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .plan-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ff0000;
+        }
+
+        .plan-card .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .plan-card .price span {
+            font-size: 1rem;
+            color: #aaa;
+        }
+
+        .plan-card ul {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .plan-card ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .plan-card ul li::before {
+            content: '✓';
+            color: #ff0000;
+            position: absolute;
+            left: 0;
+        }
+
+        .buy-button {
+            background: #ff0000;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            width: 100%;
+        }
+
+        .buy-button:hover {
+            background: #cc0000;
+        }
+
+        /* Discord Popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: linear-gradient(145deg, #1a0000, #000000);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5);
+        }
+
+        .popup h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #ff0000;
+        }
+
+        .popup p {
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+
+        .discord-link {
+            background: #5865F2;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s;
+        }
+
+        .discord-link:hover {
+            background: #4752C4;
+        }
+
+        .close-popup {
+            background: #ff0000;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .close-popup:hover {
+            background: #cc0000;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, #000000, #1a0000, #000000);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        footer p {
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links a {
+            color: #fff;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ff0000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .plan-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .plan-categories {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navbar -->
+    <header>
+        <nav>
+            <div class="logo">Cosmetic Cloud</div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#plans">Plans</a>
+                <a href="#features">Features</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Premium Minecraft Hosting</h1>
+            <p>Experience lag-free gameplay with our high-performance servers at the most affordable prices!</p>
+            <a href="#plans" class="cta-button">View Plans</a>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section class="plans" id="plans">
+        <h2>Choose Your Plan</h2>
+        <div class="plan-categories">
+            <button class="category-btn active">Budget</button>
+            <button class="category-btn">Paid</button>
+            <button class="category-btn">Special</button>
+            <button class="category-btn">VPS (Coming Soon)</button>
+        </div>
+        <div class="plan-container">
+            <!-- Budget Plan 1 -->
+            <div class="plan-card">
+                <h3>Starter</h3>
+                <div class="price">$2.99<span>/month</span></div>
+                <ul>
+                    <li>1GB RAM</li>
+                    <li>10 Player Slots</li>
+                    <li>Unlimited SSD Storage</li>
+                    <li>24/7 Support</li>
+                    <li>DDoS Protection</li>
+                </ul>
+                <button class="buy-button" onclick="openPopup()">Buy Now</button>
+            </div>
+            <!-- Budget Plan 2 -->
+            <div class="plan-card">
+                <h3>Advanced</h3>
+                <div class="price">$4.99<span>/month</span></div>
+                <ul>
+                    <li>2GB RAM</li>
+                    <li>20 Player Slots</li>
+                    <li>Unlimited SSD Storage</li>
+                    <li>24/7 Support</li>
+                    <li>DDoS Protection</li>
+                </ul>
+                <button class="buy-button" onclick="openPopup()">Buy Now</button>
+            </div>
+            <!-- Budget Plan 3 -->
+            <div class="plan-card">
+                <h3>Pro</h3>
+                <div class="price">$7.99<span>/month</span></div>
+                <ul>
+                    <li>4GB RAM</li>
+                    <li>40 Player Slots</li>
+                    <li>Unlimited SSD Storage</li>
+                    <li>24/7 Support</li>
+                    <li>DDoS Protection</li>
+                </ul>
+                <button class="buy-button" onclick="openPopup()">Buy Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discord Popup -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h3>Join Our Discord!</h3>
+            <p>To place your order, please join our Discord server. Our team will assist you with the setup and payment process.</p>
+            <a href="https://discord.gg/n733RaRH6v" class="discord-link" target="_blank">Join Discord</a>
+            <button class="close-popup" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="social-links">
+            <a href="#" target="_blank">📱</a>
+            <a href="#" target="_blank">📘</a>
+            <a href="https://discord.gg/n733RaRH6v" target="_blank">💬</a>
+        </div>
+        <p>&copy; 2023 Cosmetic Cloud. All rights reserved.</p>
+        <p>Contact: support@cosmeticcloud.com</p>
+    </footer>
+
+    <script>
+        // Discord Popup Logic
+        function openPopup() {
+            document.getElementById('popup').style.display = 'flex';
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        // Plan Category Switching (Basic Example)
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // In a real site, you would load different plans here
+            });
+        });
+    </script>
+</body>
+</html>
